@@ -34,7 +34,7 @@ SQLlite
 
 > GUI: extension vscode SQLlite
 
-### Hosting (opcionak)
+### Hosting (opcional)
 
 vercel
 -> alojamiento de paginas estáticas

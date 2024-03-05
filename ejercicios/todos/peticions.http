@@ -1,0 +1,18 @@
+http://localhost:3000
+
+###
+
+http://localhost:3000/getAll
+
+###
+
+http://localhost:3000/add
+content-type: application/json
+
+{
+    "todo": "limpiar la habitacion"
+}
+
+###
+
+http://localhost:3000/delete

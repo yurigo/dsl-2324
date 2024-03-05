@@ -1,0 +1,21 @@
+{
+  "name": "myfirstnodeapplication",
+  "version": "1.0.0",
+  "description": "es mi primer proyecto de node",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pepito": "echo \"hola\"",
+    "start": "node index.js",
+    "dev": "nodemon"
+  },
+  "author": "Yuri Gonzalez",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
+}

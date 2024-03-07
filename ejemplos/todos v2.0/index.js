@@ -74,12 +74,8 @@ app.get("/add", (req, res) => {
 app.get("/delete/:id", (req, res) => {
   // res.send("<h1>delete</h1>");
   // const ultimoElemento = todoArray.pop(); <- esta bien si borrasmos el útimo
-
   const id = req.params.id;
-  console.log("id", id);
-
   const found = todoArray.find((todo) => todo.id === id);
-
   // if (found) {
   //   todoArray = todoArray.filter((todo) => todo.id !== id);
   //   res.json({});

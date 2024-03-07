@@ -52,29 +52,67 @@ app.get("/add", (req, res) => {
   res.json({ inserted: todo });
 });
 
-app.get("/delete/:index", (req, res) => {
+app.get("/delete/:id", (req, res) => {
   // res.send("<h1>delete</h1>");
   // const ultimoElemento = todoArray.pop(); <- esta bien si borrasmos el útimo
 
-  const index = req.params.index;
+  const id = parseInt(req.params.id);
+  console.log("id", id);
 
-  const elementoABorrar = todoArray[index];
-  // copilot please remove elemment from index
+  const found = todoArray.find((todo) => todo.id === id);
 
-  const auxiliar = todoArray;
+  // if (found) {
+  //   todoArray = todoArray.filter((todo) => todo.id !== id);
+  //   res.json({});
+  // } else {
+  //   return res.status(404).json({ error: "not found" });
+  // }
 
-  auxiliar.splice(index, 1); // ⚠️muta el elemento original
+  // patron clausula guarda
+  if (!found) return res.status(404).json({ error: "not found" });
 
-  console.log("aux:", auxiliar);
+  //else...
+  todoArray = todoArray.filter((todo) => todo.id !== id);
+  res.json({});
 
-  console.log("todo", todoArray);
+  //const todoArray = [
+  //     {
+  //       "id": 1,
+  //       "text": "Limpiar la casa",
+  //       "done": true
+  //     },
+  //     {
+  //       "id": 2,
+  //       "text": "Limpiar el lavabo",
+  //       "done": false
+  //     }
+  // ]
 
-  // todoArray = todoArray.toSpliced(index, 1); // ⚠️ NO mutal el elemnto original
+  // si quiero borrar el id=1
+  // const todoArray = [
+  //     {
+  //       "id": 2,
+  //       "text": "Limpiar el lavabo",
+  //       "done": false
+  //     }
+  // ]
 
-  //todoArray.sort();
-  //todoArray = todoArray.toSorted()
+  // for (let index = 0; index < todoArray.length; index++) {
+  //   const todo = todoArray[index];
+  //   console.log(todo);
+  //   if (todo.id === id) {
+  //     todoArray.splice(index, 1);
+  //     // lo quiero borrar del todoArray.
+  //   }
+  // }
 
-  res.json({ deleted: elementoABorrar });
+  // for (const [index, todo] of todoArray.entries()) {
+  //   console.log(todo);
+  //   if (todo.id === id) {
+  //     todoArray.splice(index, 1);
+  //     // lo quiero borrar del todoArray.
+  //   }
+  // }
 });
 
 app.listen(PORT, () => {

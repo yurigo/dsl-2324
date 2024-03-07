@@ -16,3 +16,25 @@ content-type: application/json
 ###
 
 http://localhost:3000/delete/1
+
+###
+
+http://localhost:3000/update/1
+content-type: application/json
+
+{
+    "text": "limpiar la casa"
+}
+
+###
+
+http://localhost:3000/do/1
+content-type: application/json
+
+###
+
+
+http://localhost:3000/undo/1
+content-type: application/json
+
+###

@@ -115,6 +115,46 @@ app.get("/delete/:id", (req, res) => {
   // }
 });
 
+app.get("/update/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const text = req.body.text;
+
+  const found = todoArray.find((todo) => todo.id === id);
+
+  // patron clausula guarda
+  if (!found) return res.status(404).json({ error: "not found" });
+
+  //else...
+  found.text = text;
+  res.json(found);
+});
+
+app.get("/do/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+
+  const found = todoArray.find((todo) => todo.id === id);
+
+  // patron clausula guarda
+  if (!found) return res.status(404).json({ error: "not found" });
+
+  //else...
+  found.done = true;
+  res.json(found);
+});
+
+app.get("/undo/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+
+  const found = todoArray.find((todo) => todo.id === id);
+
+  // patron clausula guarda
+  if (!found) return res.status(404).json({ error: "not found" });
+
+  //else...
+  found.done = false;
+  res.json(found);
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
   console.log(`http://localhost:${PORT}`);

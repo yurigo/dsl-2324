@@ -7,7 +7,6 @@ Servicio para hacer CRUD de todos.
 - Ver todos los todos
 - Añadir un todo.
 - Eliminar un todo.
-  (v2)
 - Editar todo
 
 Endpoints:
@@ -15,10 +14,23 @@ Endpoints:
 - /getAll
 - /add
 - /delete
-  (v2)
 - /update
+- /do
+- /undo
 
-Anatomía de un TODO:
+Cambios en la anatomía de un TODO:
 
-- "Aprobar la asignatura"
-- "Limpiar la casa"
+```json
+[
+  {
+    "id": 1,
+    "text": "Limpiar la casa",
+    "done": true
+  },
+  {
+    "id": 2,
+    "text": "Limpiar el lavabo",
+    "done": false
+  }
+]
+```

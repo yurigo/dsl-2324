@@ -14,7 +14,22 @@ app.get("/", (req, res) => {
 // - /add
 // - /delete
 
+// OLD VERSION
 //const todoArray = ["por defecto 1", "por defecto 2"];
+
+// NEW VERSION
+//const todoArray = [
+//     {
+//       "id": 1,
+//       "text": "Limpiar la casa",
+//       "done": true
+//     },
+//     {
+//       "id": 2,
+//       "text": "Limpiar el lavabo",
+//       "done": false
+//     }
+// ]
 let todoArray = [];
 
 app.get("/getAll", (req, res) => {

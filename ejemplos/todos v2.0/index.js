@@ -4,6 +4,8 @@ import express from "express";
 const app = express();
 const PORT = 3000;
 
+let TODO_COUNTER = 0;
+
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -37,11 +39,17 @@ app.get("/getAll", (req, res) => {
 });
 
 app.get("/add", (req, res) => {
-  // console.log(req);
-  console.log(req.body);
-  // res.send("<h1>add</h1>");
-  todoArray.push(req.body.todo);
-  res.json({ inserted: req.body.todo });
+  const todo = {
+    id: TODO_COUNTER,
+    text: req.body.todo,
+    done: false,
+  };
+
+  todoArray.push(todo);
+
+  TODO_COUNTER++;
+
+  res.json({ inserted: todo });
 });
 
 app.get("/delete/:index", (req, res) => {

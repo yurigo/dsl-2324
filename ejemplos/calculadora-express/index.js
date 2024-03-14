@@ -1,4 +1,6 @@
 import express from "express";
+import { suma, prueba } from "./calculadora.js";
+
 const app = express();
 
 app.use(express.json());
@@ -7,6 +9,9 @@ const PORT = 3000;
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
+
+  const resultado = prueba(100);
+  console.log("esto es el resultado", resultado);
 });
 
 /**
@@ -40,10 +45,21 @@ app.get("/add/:number", (req, res) => {
 });
 
 app.get("/suma", (req, res) => {
-  res.status(200).send(total.toString());
+  // querystring ✔️
+  const num1 = parseInt(req.query.a);
+  const num2 = parseInt(req.query.b);
+  // params ❌
+  // body ❌
+  const result = suma(num1, num2); // num1 + num2;
+
+  res.status(200).json({ result: result });
 });
 
-app.get("/mult", (req, res) => {
+app.get("/sumatotal", (req, res) => {
+  //res.status(200).send(total.toString());
+});
+
+app.get("/multtotal", (req, res) => {
   res.status(200).send(totalMult.toString());
 });
 

@@ -1,12 +1,12 @@
 {
-  "name": "todos",
+  "name": "promises-example",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "node --test --watch",
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",

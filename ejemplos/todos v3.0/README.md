@@ -13,18 +13,21 @@ Endpoints:
 
 - /todos.
 
-GET /todos  ---> getall()...
-GET /todos/id ---> get(id)...
-POST /todos ---> insert(todo) // add(todo)
-PUT /todos/id ---> update(id, todo)
-DELETE /todos/id ---> delete(id)
 
+## old
 - /getAll
 - /add
 - /delete
 - /update
 - /do
 - /undo
+
+## new rest version 
+- GET /todos  ---> getall()...
+- GET /todos/id ---> get(id)...
+- POST /todos ---> insert(todo) // add(todo)
+- PUT /todos/id ---> update(id, todo)
+- DELETE /todos/id ---> delete(id)
 
 Cambios en la anatomía de un TODO:
 

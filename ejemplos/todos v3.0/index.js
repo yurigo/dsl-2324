@@ -6,9 +6,17 @@ import cors from "cors";
 const app = express();
 const PORT = 3000;
 
-
 app.use(express.json());
-app.use(cors());
+
+
+var corsOptions = {
+  origin: 'https://dsl.yurigo.dev',
+  optionsSuccessStatus: 204
+}
+
+app.use(cors(corsOptions))
+
+
 
 app.get("/", (req, res) => {
   res.status(404).send("<h1>Hello World!</h1>");

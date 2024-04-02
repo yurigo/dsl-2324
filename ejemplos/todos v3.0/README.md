@@ -13,6 +13,10 @@ Endpoints:
 
 - /todos.
 
+## frontend
+
+Para probar el servicio se ha habilitado un frontal: https://dsl.yurigo.dev/todo donde se tiene que indicar la url del enpoint de los todos.  por ejemplo: http://localhost:3000/todos
+
 
 ## old
 - /getAll

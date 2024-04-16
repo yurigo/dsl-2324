@@ -20,11 +20,14 @@ export function getTodo(id , idUser) {
 
 export function allUsers(){
     const result = db2.prepare("SELECT * FROM users").all();
-    return result;
+    return result.map(x => {
+        const {password, ...rest} = x;
+        return rest;
+    })
 }
 
 export function getUser(id){
-    const result = db2.prepare(`SELECT * FROM users WHERE id = ?`).get(id);
+    const result = db2.prepare(`SELECT id, email, name FROM users WHERE id = ?`).get(id);
     return result;
 }
 

@@ -31,9 +31,16 @@ app.post("/login" , (req,res,next) => {
 app.use("/todos" , todosRoute)
 app.use("/users" , usersRoute)
 
+app.use((err, req, res, next) => {
+  console.log("err", err);
+  res.status(500).json({"error": err})
+})
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
   console.log(`http://localhost:${PORT}/todos`);
   console.log(`http://localhost:${PORT}/users`);
   console.log(`http://localhost:${PORT}/users/1/todos`);
 });
+
+

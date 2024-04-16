@@ -48,13 +48,8 @@ export function updateUser(id, toUpdate){
 
 
 export function authenticate(email, password){
-    const result = db2.prepare(`SELECT * FROM users WHERE email = ?`).get(email);
-    if (result){
-        if (result.password === password ) return true;
-        else return false;
-    }
-    else{
-        return false;
-    }
+    const result = db2.prepare(`SELECT * FROM users WHERE email = ? and password = ?`).get(email , password);
+    if (result) return true;
+    return false;
 }
 

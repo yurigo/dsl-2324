@@ -1,4 +1,5 @@
 import bsqlite3 from "better-sqlite3"
+import bcrypt from "bcrypt";
 const DBSOURCE = "./todos.sqlite"
 
 const db2 = bsqlite3(DBSOURCE);
@@ -20,6 +21,7 @@ export function getTodo(id , idUser) {
 
 export function allUsers(){
     const result = db2.prepare("SELECT * FROM users").all();
+    return result;
     return result.map(x => {
         const {password, ...rest} = x;
         return rest;
@@ -32,12 +34,35 @@ export function getUser(id){
 }
 
 
+
+
+
  export function insertUser(toInsert){
     const {name, email, password} = toInsert
-    const result = db2
-        .prepare(`INSERT INTO users (name , email , password) VALUES (? , ? , ?)`)
-        .run(name, email, password);
-    return result;
+
+    
+    const saltRounds = 10;
+    const myPlaintextPassword = password;
+
+    return new Promise((resolve, reject) => {
+
+        
+        bcrypt.hash(myPlaintextPassword, saltRounds, function(err, hash) {
+            // Store hash in your password DB.
+            try{
+                const result = db2
+                .prepare(`INSERT INTO users (name , email , password) VALUES (? , ? , ?)`)
+                .run(name, email, hash);
+                    resolve(result)          
+            }
+            catch(ex){
+                reject(ex);
+            }
+        });
+        
+        
+    })
+        
 }
 
 

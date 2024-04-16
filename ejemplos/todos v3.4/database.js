@@ -31,6 +31,17 @@ export function getUser(id){
     return result;
 }
 
+
+ export function insertUser(toInsert){
+    const {name, email, password} = toInsert
+    const result = db2
+        .prepare(`INSERT INTO users (name , email , password) VALUES (? , ? , ?)`)
+        .run(name, email, password);
+    return result;
+}
+
+
+
 /**
  * hace un update de user y los parametros son variables.
  * @param {*} id 

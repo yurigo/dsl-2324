@@ -1,6 +1,6 @@
 import { allUsers,
     getUser, 
-    // insertUser,
+    insertUser,
     updateUser,
     // deleteUser,
 } from "../database.js"
@@ -14,7 +14,14 @@ export const getUsersController = (req, res, next) => {
     res.json(getUser(req.params.id));
 }
 export const insertUserController = (req, res, next) => {
-    res.status(501).send("not implemented")
+    // res.status(501).send("not implemented")
+    const toInsert = req.body // validar que el body sea correcto...
+
+    try{
+        res.json(insertUser(toInsert))
+    }catch(ex){
+        next(ex);
+    }
 }
 export const updateUserController = (req, res, next) => {
 

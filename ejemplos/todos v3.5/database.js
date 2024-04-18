@@ -91,10 +91,17 @@ export function updateUser(id, toUpdate) {
   return result;
 }
 
-export function authenticate(email, password) {
-  const result = db2
-    .prepare(`SELECT * FROM users WHERE email = ? and password = ?`)
-    .get(email, password);
-  if (result) return true;
-  return false;
+export async function authenticate(email, password) {
+  // console.log(email, password);
+  const result = db2.prepare(`SELECT * FROM users WHERE email = ?`).get(email);
+
+  console.log(result);
+
+  if (!result) return false;
+
+  try {
+    return await bcrypt.compare(password, result.password);
+  } catch (ex) {
+    return false;
+  }
 }

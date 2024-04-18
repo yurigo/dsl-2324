@@ -17,4 +17,10 @@
 - `/users/:id/todos`
 - `/users/:id/todos/:id`
 
+### para inicaliazr el proyecto:
 
+```
+npm install
+```
+
+copiar sample.env a .env y modificar las claves con vuestros secretos.

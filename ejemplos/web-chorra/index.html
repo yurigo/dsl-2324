@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>web chorra</title>
+</head>
+<body>
+    <form id="login">
+        <input name="login" />
+        <input name="password" />
+        <button id="singin">sign in</button>
+    </form>
+    <button id="logout">logout</button>
+
+    <button id="getTodos">getTodos</button>
+
+    <div></div>
+
+
+    <script>
+        const form = document.getElementById("login");
+        
+        const logoutButton = document.getElementById("logout");
+        const getTodosButton = document.getElementById("getTodos");
+
+        form.addEventListener("submit", (event) => {
+            event.preventDefault()
+
+            fetch("http://localhost:3000/login" , {
+                method: "POST",
+                headers: {
+                    "Content-type" : "application/json"
+                },
+                body: JSON.stringify(
+                    {
+                        "email": "a@a.com",
+                        "password": "this is my pass"
+                    }
+                )
+            })
+                .then(res => res.json())
+                .then(data => console.log(data))
+                .catch(err => console.error(err))
+
+        })
+
+        getTodosButton.addEventListener("click" , () => {
+            fetch("http://localhost:3000/todos" , {
+                headers: {
+                    'Authorization' : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoxLCJpYXQiOjE3MTQ0ODk1MTB9.bX9Z5RQAF_iuu8EmPWJ5tOMt_kvGm_pCiktpgksxvHg"
+                }
+            })
+                .then(res => res.json())
+                .then(data => console.log(data))
+                .catch(err => console.error(err))
+        })
+
+    </script>
+
+</body>
+</html>

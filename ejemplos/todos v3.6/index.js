@@ -9,6 +9,8 @@ import { authenticate } from "./database.js";
 
 import jwt from "jsonwebtoken";
 
+import { verifyToken } from "./middleware/verifiyToken.js";
+
 // inicializamos dotenv
 config();
 
@@ -18,20 +20,7 @@ const PORT = 3000;
 app.use(express.json());
 app.use(cors());
 
-app.get("/", (req, res, next) => {
-  //vamos a verificar que el usuario se ha logueado:
-
-  if (!req.headers.authorization)
-    return next("no hay cabecera de autenticacion");
-
-  const token = req.headers.authorization.split(" ")[1];
-
-  const payload = jwt.verify(token, process.env.JWT_SECRET_SIGN);
-
-  console.log(payload);
-
-  res.status(200).send("<h1>Hello World!</h1>");
-});
+// Publico
 
 app.post("/login", async (req, res, next) => {
   // res.status(200).send("ok")
@@ -46,7 +35,7 @@ app.post("/login", async (req, res, next) => {
     const token = jwt.sign(
       {
         user: user.id,
-        exp: Math.floor(Date.now() / 1000) + 60,
+        // exp: Math.floor(Date.now() / 1000) + 60,
       },
       process.env.JWT_SECRET_SIGN
     );
@@ -57,8 +46,19 @@ app.post("/login", async (req, res, next) => {
   }
 });
 
-app.use("/todos", todosRoute);
 app.use("/users", usersRoute);
+
+// privado
+
+app.use(verifyToken);
+
+app.get("/", (req, res, next) => {
+  //vamos a verificar que el usuario se ha logueado:
+
+  res.status(200).send("<h1>Hello World!</h1>");
+});
+
+app.use("/todos", todosRoute);
 
 app.use((err, req, res, next) => {
   console.log("err", err);

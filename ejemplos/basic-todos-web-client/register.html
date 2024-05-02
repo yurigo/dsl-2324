@@ -1,55 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register at todos 9000</title>
-</head>
-<body>
+  </head>
+  <body>
     <form id="registerForm">
-        email:
-        <input name="email" />
-<br />
-password:
-<input name="password" />
+      name:
+      <input name="name" value="yuri" />
+      <br />
+      email:
+      <input name="email" value="yuri@google.com" />
+      <br />
+      password:
+      <input name="password" value="lorem" />
 
-<br />
-repeat password:
-<input name="repeatPassword" />
-<br />
+      <br />
+      repeat password:
+      <input name="repeatPassword" value="lorem" />
+      <br />
 
-        <button id="singup">Register</button>
+      <button id="singup">Register</button>
     </form>
 
-
     <script>
-        const form = document.getElementById("registerForm");
-        
-        const logoutButton = document.getElementById("logout");
-        const getTodosButton = document.getElementById("getTodos");
+      const form = document.getElementById("registerForm");
 
-        form.addEventListener("submit", (event) => {
-            event.preventDefault()
-            const formData = new FormData(form);
+      const logoutButton = document.getElementById("logout");
+      const getTodosButton = document.getElementById("getTodos");
 
-            fetch("http://localhost:3000/users" , {
-                method: "POST",
-                headers: {
-                    "Content-type" : "application/json"
-                },
-                body: JSON.stringify(Object.fromEntries(formData))
-                
-            })
-                .then(res => res.json())
-                .then(data => console.log(data))
-                .catch(err => console.error(err))
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const formData = new FormData(form);
 
+        fetch("http://localhost:3000/users", {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(Object.fromEntries(formData)),
         })
-
+          .then((res) => res.json())
+          .then((data) => console.log(data))
+          .catch((err) => console.error(err));
+      });
     </script>
-
-
-
-</body>
+  </body>
 </html>

@@ -1,5 +1,3 @@
-import Joi from "joi";
-
 import {
   allUsers,
   getUser,

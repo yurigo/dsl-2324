@@ -12,6 +12,9 @@ import {
   deleteUserController,
 } from "../controllers/users.controller.js";
 
+// import { validateUserSchema } from "../schemas/userSchema.js";
+import { verifyUserSchema } from "../middleware/users/verifySchema.js";
+
 import routeTodos from "./users/todos.route.js";
 
 // function middlewareUsers( req , res , next ){
@@ -42,7 +45,7 @@ router.use(middlewareGenericErrorLogging);
 router.use(middlewareGenericError);
 
 // publico
-router.post("/", insertUserController);
+router.post("/", verifyUserSchema, insertUserController);
 
 // privado
 router.use(verifyToken);

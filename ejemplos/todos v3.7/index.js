@@ -40,7 +40,7 @@ app.post("/login", async (req, res, next) => {
       process.env.JWT_SECRET_SIGN
     );
 
-    res.status(200).json({ accessToken: token });
+    res.status(200).json({ accessToken: token, userID: user.id });
   } else {
     res.status(404).json({ msg: "el ususario no existe" });
   }

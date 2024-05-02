@@ -54,6 +54,6 @@ router.get("/:id", getUsersController);
 router.put("/:id", updateUserController);
 router.delete("/:id", deleteUserController);
 
-router.use("/:idUser/todos", routeTodos);
+router.use("/:idUser/todos", routeTodos); //<-- este endpoint con la autorizacion que tenemos no tiene mucho sentido
 
 export default router;

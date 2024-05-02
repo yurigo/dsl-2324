@@ -1,63 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>basic todos web client</title>
-</head>
-<body>
+  </head>
+  <body>
     <form id="login">
-        <input name="login" />
-        <input name="password" />
-        <button id="singin">sign in</button>
+      email
+      <input name="email" />
+      <br />
+      password:
+      <input name="password" />
+      <br />
+      <button id="singin">sign in</button>
     </form>
+    <br />
     <button id="logout">logout</button>
-
-    <button id="getTodos">getTodos</button>
+    <br />
+    <button id="getAllTodos">getAllTodos</button>
+    <br />
+    <button id="getMyTodos">getMyTodos</button>
 
     <div></div>
 
-
     <script>
-        const form = document.getElementById("login");
-        
-        const logoutButton = document.getElementById("logout");
-        const getTodosButton = document.getElementById("getTodos");
+      const form = document.getElementById("login");
 
-        form.addEventListener("submit", (event) => {
-            event.preventDefault()
+      const logoutButton = document.getElementById("logout");
+      const getAllTodosButton = document.getElementById("getAllTodos");
+      const getMyTodosButton = document.getElementById("getMyTodos");
 
-            fetch("http://localhost:3000/login" , {
-                method: "POST",
-                headers: {
-                    "Content-type" : "application/json"
-                },
-                body: JSON.stringify(
-                    {
-                        "email": "a@a.com",
-                        "password": "this is my pass"
-                    }
-                )
-            })
-                .then(res => res.json())
-                .then(data => console.log(data))
-                .catch(err => console.error(err))
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
 
+        const formData = new FormData(form);
+
+        fetch("http://localhost:3000/login", {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(Object.fromEntries(formData)),
         })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            localStorage.setItem("token", data.accessToken);
+            localStorage.setItem("userID", data.userID);
+          })
+          .catch((err) => console.error(err));
+      });
 
-        getTodosButton.addEventListener("click" , () => {
-            fetch("http://localhost:3000/todos" , {
-                headers: {
-                    'Authorization' : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoxLCJpYXQiOjE3MTQ0ODk1MTB9.bX9Z5RQAF_iuu8EmPWJ5tOMt_kvGm_pCiktpgksxvHg"
-                }
-            })
-                .then(res => res.json())
-                .then(data => console.log(data))
-                .catch(err => console.error(err))
+      getAllTodosButton.addEventListener("click", () => {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
+        fetch(`http://localhost:3000/todos`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         })
+          .then((res) => res.json())
+          .then((data) => console.log(data))
+          .catch((err) => console.error(err));
+      });
 
+      getMyTodosButton.addEventListener("click", () => {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
+        const userID = localStorage.getItem("userID");
+        if (!userID) return;
+
+        fetch(`http://localhost:3000/users/@me/todos`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => console.log(data))
+          .catch((err) => console.error(err));
+      });
     </script>
-
-</body>
+  </body>
 </html>

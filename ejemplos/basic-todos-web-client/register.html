@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register at todos 9000</title>
+</head>
+<body>
+    <form id="registerForm">
+        email:
+        <input name="email" />
+<br />
+password:
+<input name="password" />
+
+<br />
+repeat password:
+<input name="repeatPassword" />
+<br />
+
+        <button id="singup">Register</button>
+    </form>
+
+
+    <script>
+        const form = document.getElementById("registerForm");
+        
+        const logoutButton = document.getElementById("logout");
+        const getTodosButton = document.getElementById("getTodos");
+
+        form.addEventListener("submit", (event) => {
+            event.preventDefault()
+            const formData = new FormData(form);
+
+            fetch("http://localhost:3000/users" , {
+                method: "POST",
+                headers: {
+                    "Content-type" : "application/json"
+                },
+                body: JSON.stringify(Object.fromEntries(formData))
+                
+            })
+                .then(res => res.json())
+                .then(data => console.log(data))
+                .catch(err => console.error(err))
+
+        })
+
+    </script>
+
+
+
+</body>
+</html>
